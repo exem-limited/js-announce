@@ -63,7 +63,7 @@ gulp.task('build:scripts', () => {
     }))
     .on('error', (error) => {
       if (continueOnError) {
-        log(error)
+        console.log(error)
       } else {
         throw error
       }
@@ -80,8 +80,10 @@ gulp.task('build', gulp.series(
     'build:scripts', 
     // 'build:styles'
   ),
-  ...(skipStandalone ? [] : ['build:standalone'])
+  // ...(skipStandalone ? [] : ['build:standalone'])
 ))
+
+gulp.task('default', gulp.parallel('build'))
 
 gulp.task('develop', gulp.series(
   'build',
@@ -92,8 +94,8 @@ gulp.task('develop', gulp.series(
   },
   async function sandbox () {
     browserSync.init({
-      port: 8080,
-      uiPort: 8081,
+      port: 3333,
+      uiPort: 3333,
       notify: false,
       reloadOnRestart: true,
       https: false,
